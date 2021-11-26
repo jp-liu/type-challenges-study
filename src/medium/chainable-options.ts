@@ -18,7 +18,7 @@ const result = config
   .option("bar", { value: "Hello World" })
   .get();
 type b = typeof result
-console.log(result.bar.value);
+console.log(result);
 
 // expect the type of result to be:
 interface Result {
