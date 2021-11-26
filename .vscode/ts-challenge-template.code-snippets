@@ -1,0 +1,19 @@
+{
+    "ts-challenge": {
+      "prefix": "challenge-ts",
+      "body": [
+        "import { Expect, Equal } from \"@type-challenges/utils\";",
+        "",
+        "/**",
+        " * @description ",
+        " * @tip ",
+        " */",
+        "type $0",
+        "",
+        "type cases = [Expect<Equal<$0>>];",
+        ""
+      ],
+      "description": "Ts challenges question template" //代码块的介绍
+    }
+  }
+  
