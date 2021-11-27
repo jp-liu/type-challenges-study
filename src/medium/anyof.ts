@@ -1,5 +1,5 @@
 import { Expect, Equal } from "@type-challenges/utils";
-import { falsy } from ".";
+import { falsy } from "..";
 
 /**
  * @description 元组中是否有布尔值为`false`的值,有则返回`false`,没有则为`true`

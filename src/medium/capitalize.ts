@@ -1,4 +1,4 @@
-import { CapitalizedChars } from ".";
+import { CapitalizedChars } from "..";
 
 /**
  * @description 首字母大写
