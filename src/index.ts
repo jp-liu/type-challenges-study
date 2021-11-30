@@ -17,6 +17,12 @@ export interface CapitalizedChars {
 /**
  * @description 创建指定长度的`unknown`元组
  */
-export type Tuple<N extends number, T extends unknown[] = []> = T["length"] extends N
-  ? T
-  : Tuple<N, [...T, unknown]>;
+export type Tuple<
+  N extends number,
+  T extends unknown[] = []
+> = T["length"] extends N ? T : Tuple<N, [...T, unknown]>;
+
+/**
+ * @description 迭代`Map`,用于组装交叉类型或者联合类型
+ */
+export type ForOf<T extends {}> = { [P in keyof T]: T[P] };
