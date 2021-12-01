@@ -4,7 +4,7 @@ import { Expect, Equal } from "@type-challenges/utils";
  * @description 类型版的`Array.reverse`方法
  * @tips 1.通过类型推导,递归反向填充
  */
-type Reverse<T extends any[]> = T extends [infer F, ...infer L]
+export type Reverse<T extends any[]> = T extends [infer F, ...infer L]
   ? [...Reverse<L>, F]
   : [];
 
