@@ -17,6 +17,12 @@ export interface CapitalizedChars {
 /**
  * @description 创建指定长度的`unknown`元组
  */
-export type Tuple<N extends number, T extends unknown[] = []> = T["length"] extends N
-  ? T
-  : Tuple<N, [...T, unknown]>;
+export type Tuple<
+  N extends number,
+  T extends unknown[] = []
+> = T["length"] extends N ? T : Tuple<N, [...T, unknown]>;
+
+/**
+ * @description 匹配空格/空行
+ */
+export type WhiteSpace = " " | "\t" | "\n";

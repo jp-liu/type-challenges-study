@@ -9,6 +9,7 @@ import { Expect, Equal } from "@type-challenges/utils";
 type AppendToObject<O extends object, Key extends string, Value> = {
   [P in keyof O | Key]: P extends keyof O ? O[P] : Value;
 };
+
 type Test = { id: "1" };
 type Result = AppendToObject<Test, "value", 4>; // expected to be { id: '1', value: 4 }
 
