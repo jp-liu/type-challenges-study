@@ -8,4 +8,5 @@ type a = Promise<string>
 type b = Awaited<a>
 type c = Awaited<Promise<{ field: 'wahaha' }>>
 
+
 export {}

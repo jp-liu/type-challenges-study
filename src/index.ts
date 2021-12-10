@@ -26,3 +26,8 @@ export type Tuple<
  * @description 匹配空格/空行
  */
 export type WhiteSpace = " " | "\t" | "\n";
+
+/**
+ * @description 迭代`Map`,用于组装交叉类型或者联合类型
+ */
+export type ForOf<T extends {}> = { [P in keyof T]: T[P] };

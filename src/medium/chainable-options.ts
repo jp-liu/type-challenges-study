@@ -16,8 +16,10 @@ const result = config
   .option("foo", 123)
   .option("name", "type-challenges")
   .option("bar", { value: "Hello World" })
+  .option("12321321321321", "dasdsa")
   .get();
-type b = typeof result
+
+type b = typeof result;
 console.log(result);
 
 // expect the type of result to be:
