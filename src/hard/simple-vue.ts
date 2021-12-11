@@ -8,7 +8,7 @@ import { Expect, Equal } from "@type-challenges/utils";
 // }
 // /**
 //  * @description 实现一个简版的`Vue`类型
-//  * @tips
+//  * @tips 这个有点没太搞懂,东西我知道,但是他如何检验啊是否正确呢
 //  */
 //  type GetComputed<C> = C extends Record<string, (...args: any[]) => any>
 //  ? { [S in keyof C]: ReturnType<C[S]> }
@@ -43,5 +43,3 @@ const instance = SimpleVue({
     },
   },
 });
-
-type cases = [Expect<Equal<>>];
