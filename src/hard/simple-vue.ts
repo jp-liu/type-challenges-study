@@ -22,7 +22,9 @@ type Options<D, C, M> = {
   methods: ThisType<D & Computed<C> & M> & M;
 };
 
-declare function SimpleVue<D, C, M>(options: Options<D, C, M>): any;
+declare function SimpleVue<D, C, M>(
+  options: Options<D, C, M>
+): D & Computed<C> & M;
 
 const instance = SimpleVue({
   data() {
