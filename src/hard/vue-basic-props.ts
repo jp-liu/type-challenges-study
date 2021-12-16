@@ -1,5 +1,3 @@
-import { Expect, Equal } from "@type-challenges/utils";
-
 /**
  * @description 计算`Props`的类型
  * @tips 1.计算属性的类型有两种情况
@@ -86,3 +84,28 @@ type e2 = StringConstructor extends PropConstructor2<infer R> ? R : any; // stri
 type e3 = StringConstructor extends PropConstructor3<infer R> ? R : any; // string
 type p1 = StringConstructor extends Prop<infer T> ? T : any; // string
 type p2 = InferProps<{ a: StringConstructor }>; // string
+
+/**
+ * 通过构造器类型,判断基础类型
+ */
+type PropType1<T> = MyPropConstructor<T> | MyPropConstructor<T>[];
+type Prop1<T = any> = PropType<T> | { type?: PropType<T> };
+type MyPropConstructor<T> = {
+  new (): T & object;
+  (): T;
+};
+
+type MyInferPropType<T> = T extends Prop1<infer R>
+  ? unknown extends R
+    ? any
+    : R
+  : any;
+type MyInferProp<T> = {
+  [P in keyof T]: MyInferPropType<T[P]>;
+};
+
+type my1 = MyInferProp<{
+  a: StringConstructor;
+  b: { type: StringConstructor };
+  c: { type: [StringConstructor, NumberConstructor] };
+}>;
