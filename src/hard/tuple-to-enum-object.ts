@@ -1,11 +1,14 @@
 import { Expect, Equal } from "@type-challenges/utils";
 
 /**
- * @description
+ * @description 元组转换成为枚举对象
  * @tips 1.使用`PascalCase`类型辅助,将`key`转化能成为大驼峰
  *       2.使用`FindIndex`,查找元素下标
  */
-type Enum<T extends readonly string[], N extends boolean = false> = {
+type TupleToEnumObject<
+  T extends readonly string[],
+  N extends boolean = false
+> = {
   readonly [Key in T[number] as PascalCase<Key>]: T[number] extends infer L
     ? L extends Key
       ? N extends true
@@ -38,12 +41,12 @@ type PascalCase<S extends string> = S extends `${infer F}${infer R}`
   ? `${Uppercase<F>}${R}`
   : never;
 
-type a = Enum<["aaa", "bbb"]>;
+type a = TupleToEnumObject<["aaa", "bbb"]>;
 
 type cases = [
   Expect<
     Equal<
-      Enum<["aaa", "bbb"]>,
+      TupleToEnumObject<["aaa", "bbb"]>,
       {
         readonly Aaa: "aaa";
         readonly Bbb: "bbb";
@@ -52,7 +55,7 @@ type cases = [
   >,
   Expect<
     Equal<
-      Enum<["aaa", "bbb"], true>,
+      TupleToEnumObject<["aaa", "bbb"], true>,
       {
         readonly Aaa: 0;
         readonly Bbb: 1;
