@@ -17,7 +17,7 @@ type Fibonacci<
   ? Current["length"]
   : Fibonacci<T, [...CurrentIndex, 1], Current, [...Prev, ...Current]>;
 
-type Result1 = Fibonacci<1>; // 2
+type Result1 = Fibonacci<4>; // 2
 type Result2 = Fibonacci<8>; // 21
 
 type cases = [Expect<Equal<Fibonacci<3>, 2>>, Expect<Equal<Fibonacci<8>, 21>>];
