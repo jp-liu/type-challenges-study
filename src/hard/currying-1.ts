@@ -1,3 +1,5 @@
+import { Equal, Expect } from '@type-challenges/utils'
+
 /**
  * @description 柯里化函数,将多参函数,转换成为单参数函数
  * @tips 1.将多参数函数转换成,单参数函数,就是函数的组合,函数式编程的经典逻辑
@@ -8,15 +10,52 @@ type Curried<T extends Function> = T extends (
   arg: infer X,
   ...args: infer Y
 ) => any
-  ? Y["length"] extends 0
+  ? Y['length'] extends 0
     ? (arg: X) => ReturnType<T>
     : (arg: X) => Curried<(...args: Y) => ReturnType<T>>
-  : T;
+  : T
 
-declare function Currying<T extends Function>(fn: T): Curried<T>;
+type Curried1<T> = T extends (...args: infer P) => infer R
+  ? P extends [...infer Rest, infer Last]
+    ? Curried1<(...args: Rest) => (arg: Last) => R>
+    : R
+  : never
 
-const add = (a: number, b: number) => a + b;
-const three = add(1, 2);
+declare function Currying<T extends Function>(fn: T): Curried<T>
 
-const curriedAdd = Currying(add);
-const five = curriedAdd(2)(3);
+const add = (a: number, b: number) => a + b
+const three = add(1, 2)
+
+const curriedAdd = Currying(add)
+const five = curriedAdd(2)(3)
+
+const curried1 = Currying((a: string, b: number, c: boolean) => true)
+const curried2 = Currying(
+  (
+    a: string,
+    b: number,
+    c: boolean,
+    d: boolean,
+    e: boolean,
+    f: string,
+    g: boolean
+  ) => true
+)
+
+type cases = [
+  Expect<
+    Equal<typeof curried1, (a: string) => (b: number) => (c: boolean) => true>
+  >,
+  Expect<
+    Equal<
+      typeof curried2,
+      (
+        a: string
+      ) => (
+        b: number
+      ) => (
+        c: boolean
+      ) => (d: boolean) => (e: boolean) => (f: string) => (g: boolean) => true
+    >
+  >
+]

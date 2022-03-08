@@ -1,4 +1,4 @@
-import { Expect, Equal } from "@type-challenges/utils";
+import { Expect, Equal } from '@type-challenges/utils'
 
 /**
  * @description 实现数组的`slice`类型版本
@@ -9,19 +9,19 @@ import { Expect, Equal } from "@type-challenges/utils";
 type Slice<
   Arr extends any[],
   Start extends number = 0,
-  End extends number = Arr["length"]
+  End extends number = Arr['length']
 > = SliceNormal<
   Arr,
-  MakePositive<Start, Repect<0, Arr["length"]>>,
-  MakePositive<End, Repect<0, Arr["length"]>>
->;
+  MakePositive<Start, Repeat<0, Arr['length']>>,
+  MakePositive<End, Repeat<0, Arr['length']>>
+>
 
 /**
  * @description 根据数字创建固定长度的元组
  */
-type Repect<T, N extends number, R extends T[] = []> = R["length"] extends N
+type Repeat<T, N extends number, R extends T[] = []> = R['length'] extends N
   ? R
-  : Repect<T, N, [T, ...R]>;
+  : Repeat<T, N, [T, ...R]>
 
 /**
  * @description 计算负数的对应下标
@@ -35,12 +35,12 @@ type MakePositive<
 > = `${N}` extends `-${string}`
   ? // 不满足的时候,则说明已经没有元素可以减,例如数组就三个元素, 写了-4
     T extends [any, ...infer Rest]
-    ? `-${R["length"]}` extends `${N}`
-      ? T["length"] // 相等则表示已经减完了,将剩余的返回
+    ? `-${R['length']}` extends `${N}`
+      ? T['length'] // 相等则表示已经减完了,将剩余的返回
       : MakePositive<N, Rest, [any, ...R]> // 不相等则使用`Rest`,相当于减少一位,`R`加一位表示已经处理的数量
     : 0
-  : N;
-type a = MakePositive<-2, Repect<0, 5>>;
+  : N
+type a = MakePositive<-2, Repeat<0, 5>>
 
 /**
  * @description 截取元组
@@ -58,23 +58,23 @@ type a = MakePositive<-2, Repect<0, 5>>;
 type SliceNormal<
   Arr extends any[],
   Start extends number = 0,
-  End extends number = Arr["length"],
+  End extends number = Arr['length'],
   Pre extends any[] = [],
   R extends any[] = []
 > = Arr extends [infer F, ...infer L]
-  ? Pre["length"] extends End
+  ? Pre['length'] extends End
     ? R
-    : Pre["length"] extends Start
+    : Pre['length'] extends Start
     ? SliceNormal<L, Start, End, [...Pre, F], [F]>
     : R extends []
     ? SliceNormal<L, Start, End, [...Pre, F]>
     : SliceNormal<L, Start, End, [...Pre, F], [...R, F]>
-  : R;
+  : R
 
-type Arr1 = [1];
-type Result = Slice<Arr1, 2>; // expected to be [3, 4]
+type Arr1 = [1]
+type Result = Slice<Arr1, 2> // expected to be [3, 4]
 
-type Arr = [1, 2, 3, 4, 5];
+type Arr = [1, 2, 3, 4, 5]
 
 type cases = [
   // basic
@@ -96,4 +96,4 @@ type cases = [
   Expect<Equal<Slice<Arr, 10>, []>>,
   Expect<Equal<Slice<Arr, 1, 0>, []>>,
   Expect<Equal<Slice<Arr, 10, 20>, []>>
-];
+]
